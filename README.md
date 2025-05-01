@@ -20,3 +20,7 @@ This is an Android eCommerce mobile application built using **Jetpack Compose**.
 1. Clone the repository:
    ```bash
    git clone https://github.com/ali72-20/ecommerce_project.git
+
+
+
+![Splash Screen](images/splash_image.png)
