@@ -23,4 +23,5 @@ This is an Android eCommerce mobile application built using **Jetpack Compose**.
 
 
 
-![Splash Screen](images/splash_image.png)
+<img src="images/splash_image.png" alt="Splash Screen" width="300" height="600"/>
+
