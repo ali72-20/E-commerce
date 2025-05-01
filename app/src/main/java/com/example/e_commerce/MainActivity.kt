@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import com.example.e_commerce.core.AppNavigationManager
+import com.example.e_commerce.fragments.login.LoginFragment
 import com.example.e_commerce.ui.theme.EcommerceTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             EcommerceTheme {
-                AppNavigationManager()
+                LoginFragment()
             }
         }
     }

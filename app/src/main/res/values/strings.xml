@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">E-commerce</string>
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="splash_bottom">Splash bottom</string>
+    <string name="splash_logo">Splash logo</string>
+    <string name="splash_top">Splash top</string>
 </resources>

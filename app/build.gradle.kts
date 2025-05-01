@@ -55,7 +55,7 @@ dependencies {
     ksp("com.google.dagger:hilt-android-compiler:2.56.1")
     val nav_version = "2.8.9"
     implementation("androidx.navigation:navigation-compose:$nav_version")
-    implementation("androidx.core:core-splashscreen:1.0.0")
+    implementation("androidx.core:core-splashscreen:1.0.1")
     implementation(project(":domain"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
