@@ -1,5 +1,6 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,6 +14,7 @@ import com.example.e_commerce.fragments.register.RegisterFragment
 
 @Composable
 fun AppNavigationManager(navigator: AppNavigator) {
+
     val navController = rememberNavController()
     val lifecycleOwner = LocalLifecycleOwner.current
 

@@ -2,7 +2,10 @@ package com.example.e_commerce.core.navigation
 
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import javax.inject.Singleton
 
+
+@Singleton
 class AppNavigator {
     private val _commands = MutableSharedFlow<NavigationCommand>()
     val commands = _commands.asSharedFlow()
