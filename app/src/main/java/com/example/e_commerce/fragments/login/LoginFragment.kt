@@ -3,7 +3,10 @@ package com.example.e_commerce.fragments.login
 import androidx.compose.foundation.Image
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,14 +26,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.e_commerce.ui.theme.EcommerceTheme
 import com.example.e_commerce.R
 import com.example.e_commerce.core.AppPadding
 import com.example.e_commerce.core.AppRadius
+import com.example.e_commerce.managers.login.GoToRegisterAction
+import com.example.e_commerce.managers.login.LoginViewModel
 import com.example.e_commerce.ui.theme.Gray
 
 @Composable
-fun LoginFragment() {
+fun LoginFragment(
+    viewModel: LoginViewModel = hiltViewModel<LoginViewModel>()
+) {
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -64,7 +73,9 @@ fun LoginFragment() {
 
 
 @Composable
-fun LoginForm() {
+fun LoginForm(
+    viewModel: LoginViewModel = hiltViewModel<LoginViewModel>()
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -118,13 +129,23 @@ fun LoginForm() {
                 modifier = Modifier.padding(top = AppPadding.small, bottom = AppPadding.small)
             )
         }
-        Text(
-            text = stringResource(R.string.don_t_have_an_account_create_account),
-            style = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily(Font(R.font.poppins_medium))),
-            modifier = Modifier
-                .padding(top = AppPadding.medium)
-                .align(Alignment.CenterHorizontally)
-        )
+        Row(modifier = Modifier.fillMaxWidth(), Arrangement.Center) {
+            Text(
+                text = stringResource(R.string.don_t_have_an_account),
+                style = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily(Font(R.font.poppins_medium))),
+                modifier = Modifier
+                    .padding(top = AppPadding.medium)
+            )
+            Text(
+                text = stringResource(R.string.create_account),
+                style = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily(Font(R.font.poppins_medium))),
+                modifier = Modifier
+                    .padding(top = AppPadding.medium)
+                    .clickable {
+                        viewModel.doAction(GoToRegisterAction())
+                    }
+            )
+        }
     }
 }
 
