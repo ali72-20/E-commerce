@@ -5,7 +5,9 @@ This is an Android eCommerce mobile application built using **Jetpack Compose**.
 ## Features
 
 - **Splash Screen**: A visually engaging splash screen that introduces the app to the user when the app is launched.
+- **Login Screen**: Allows users to securely sign in to their accounts with a clean and modern interface.
 - **Navigation (Future)**: The app will include various screens such as product listings, shopping cart, and checkout pages.
+
 
 ## Project Setup
 
