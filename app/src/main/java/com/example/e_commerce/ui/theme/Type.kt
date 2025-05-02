@@ -1,5 +1,6 @@
 package com.example.e_commerce.ui.theme
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -26,7 +27,7 @@ val Typography = Typography(
         color = DarkBlue,
     ),
     bodyMedium = TextStyle(
-
+        fontFamily = FontFamily(Font(R.font.poppins_light)),
         fontSize = 16.sp,
         color = White
     ),
@@ -44,7 +45,22 @@ val Typography = Typography(
         fontFamily = FontFamily(Font(R.font.poppins_medium)),
         fontSize = 18.sp,
         color = White
-    )
+    ),
+    labelSmall = TextStyle(
+        fontFamily = FontFamily(Font(R.font.poppins_light)),
+        fontSize = 16.sp,
+        color = DarkBlue.copy(alpha = 0.6F),
+    ),
+    displayLarge = TextStyle(
+        fontFamily = FontFamily(Font(R.font.poppins_medium)),
+        fontSize = 20.sp,
+        color = White
+    ),
+    displayMedium = TextStyle(
+        fontFamily = FontFamily(Font(R.font.poppins_regular)),
+        fontSize = 18.sp,
+        color = White
+    ),
     /* Other default text styles to override
     titleLarge = TextStyle(
         fontFamily = FontFamily.Default,

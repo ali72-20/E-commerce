@@ -4,4 +4,15 @@
     <string name="splash_bottom">Splash bottom</string>
     <string name="splash_logo">Splash logo</string>
     <string name="splash_top">Splash top</string>
+    <string name="route_logo">route logo</string>
+    <string name="welcome_back_to_route">Welcome Back To Route</string>
+    <string name="please_sign_in_with_your_email">Please sign in with your email</string>
+    <string name="user_name">User Name</string>
+    <string name="enter_your_name">enter your name</string>
+    <string name="password">Password</string>
+    <string name="enter_your_password">enter your password</string>
+    <string name="forget_password">Forget password</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account_create_account">Don\'t have an account? Create Account</string>
+    <string name="show_password">Show password</string>
 </resources>
