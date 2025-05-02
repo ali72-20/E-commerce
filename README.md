@@ -21,7 +21,7 @@ This is an Android eCommerce mobile application built using **Jetpack Compose**.
    ```bash
    git clone https://github.com/ali72-20/ecommerce_project.git
 
-
-
 <img src="images/splash_image.png" alt="Splash Screen" width="300" height="600"/>
+
+<img src="images/login_image.png" alt="Login Screen" width="300" height="600"/>
 
