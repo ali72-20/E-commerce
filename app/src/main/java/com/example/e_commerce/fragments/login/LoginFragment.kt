@@ -27,17 +27,19 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.example.e_commerce.ui.theme.EcommerceTheme
 import com.example.e_commerce.R
 import com.example.e_commerce.core.AppPadding
 import com.example.e_commerce.core.AppRadius
-import com.example.e_commerce.managers.login.GoToRegisterAction
+import com.example.e_commerce.core.navigation.Register
 import com.example.e_commerce.managers.login.LoginViewModel
 import com.example.e_commerce.ui.theme.Gray
 
 @Composable
 fun LoginFragment(
-    viewModel: LoginViewModel = hiltViewModel<LoginViewModel>()
+    viewModel: LoginViewModel = hiltViewModel<LoginViewModel>(),
+    navController: NavHostController
 ) {
 
     Column(
@@ -67,14 +69,15 @@ fun LoginFragment(
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.align(Alignment.Start)
         )
-        LoginForm()
+        LoginForm(navController = navController)
     }
 }
 
 
 @Composable
 fun LoginForm(
-    viewModel: LoginViewModel = hiltViewModel<LoginViewModel>()
+    viewModel: LoginViewModel = hiltViewModel<LoginViewModel>(),
+    navController: NavHostController
 ) {
     Column(
         modifier = Modifier
@@ -142,7 +145,7 @@ fun LoginForm(
                 modifier = Modifier
                     .padding(top = AppPadding.medium)
                     .clickable {
-                        viewModel.doAction(GoToRegisterAction())
+                        navController.navigate(Register)
                     }
             )
         }
@@ -167,11 +170,11 @@ fun FormTextField(labelText: String, trailingIcon: (@Composable (() -> Unit))? =
 
         )
 }
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun LoginFragmentPreview() {
-    EcommerceTheme {
-        LoginFragment()
-    }
-}
+//
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun LoginFragmentPreview() {
+//    EcommerceTheme {
+//        LoginFragment()
+//    }
+//}
