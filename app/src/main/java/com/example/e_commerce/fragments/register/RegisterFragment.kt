@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,7 +21,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.e_commerce.R
@@ -31,7 +31,6 @@ import com.example.e_commerce.core.shard_compose.FormTextField
 import com.example.e_commerce.managers.register.RegisterActions
 import com.example.e_commerce.managers.register.RegisterScreenStates
 import com.example.e_commerce.managers.register.RegisterViewModel
-import com.example.e_commerce.ui.theme.EcommerceTheme
 
 @Composable
 fun RegisterScreen(
@@ -65,9 +64,12 @@ fun RegisterFragment(
             painterResource(R.drawable.route_logo),
             contentScale = ContentScale.Crop,
             contentDescription = stringResource(R.string.route_logo),
-            modifier = Modifier.padding(top = AppPadding.x56large)
+            modifier = Modifier.padding(top = AppPadding.x64large)
         )
         RegisterForm()
+        Spacer(
+            modifier = Modifier.padding(bottom = AppPadding.x48large)
+        )
         CustomButton(text = stringResource(R.string.sign_up), onClick = {})
         Row(modifier = Modifier.fillMaxWidth(), Arrangement.Center) {
             Text(
@@ -82,7 +84,7 @@ fun RegisterFragment(
                 modifier = Modifier
                     .padding(top = AppPadding.medium)
                     .clickable {
-
+                        onAction(RegisterActions.NavigateToLoginAction)
                     }
             )
         }
