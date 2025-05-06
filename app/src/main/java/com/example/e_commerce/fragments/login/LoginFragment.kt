@@ -15,6 +15,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -25,21 +26,33 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.e_commerce.ui.theme.EcommerceTheme
 import com.example.e_commerce.R
 import com.example.e_commerce.core.AppPadding
 import com.example.e_commerce.core.AppRadius
 import com.example.e_commerce.core.navigation.Register
+import com.example.e_commerce.managers.login.LoginScreenActions
+import com.example.e_commerce.managers.login.LoginScreenStates
 import com.example.e_commerce.managers.login.LoginViewModel
 import com.example.e_commerce.ui.theme.Gray
 
+
+@Composable
+fun LoginScreen(
+    navController: NavHostController,
+    viewModel: LoginViewModel = hiltViewModel<LoginViewModel>(),
+) {
+    when(viewModel.state){
+        LoginScreenStates(navigateToRegister = true) -> navController.navigate(Register)
+    }
+    LoginFragment(viewModel)
+}
+
+
 @Composable
 fun LoginFragment(
-    viewModel: LoginViewModel = hiltViewModel<LoginViewModel>(),
-    navController: NavHostController
+    viewModel: LoginViewModel
 ) {
 
     Column(
@@ -69,15 +82,18 @@ fun LoginFragment(
             style = MaterialTheme.typography.bodyMedium,
             modifier = Modifier.align(Alignment.Start)
         )
-        LoginForm(navController = navController)
+        LoginForm(
+            state = viewModel.state,
+            onAction = viewModel::onAction
+        )
     }
 }
 
 
 @Composable
 fun LoginForm(
-    viewModel: LoginViewModel = hiltViewModel<LoginViewModel>(),
-    navController: NavHostController
+    state: LoginScreenStates,
+    onAction: (LoginScreenActions) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -145,7 +161,7 @@ fun LoginForm(
                 modifier = Modifier
                     .padding(top = AppPadding.medium)
                     .clickable {
-                        navController.navigate(Register)
+                        onAction(LoginScreenActions.GoToRegisterAction)
                     }
             )
         }

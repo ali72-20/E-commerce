@@ -1,5 +1,7 @@
 package com.example.e_commerce.managers.login
 
-abstract class LoginScreenStates {}
+data class LoginScreenStates(
+    val isLoading: Boolean = false,
+    val navigateToRegister: Boolean = false,
+)
 
-class GoToRegisterState: LoginScreenStates(){}

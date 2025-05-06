@@ -1,6 +1,8 @@
 package com.example.e_commerce.managers.login
 
-sealed class LoginScreenActions {
+sealed interface LoginScreenActions
+{
+    data object LoginAction: LoginScreenActions
+    data object GoToRegisterAction : LoginScreenActions
 }
-class LoginAction: LoginScreenActions(){}
-class GoToRegisterAction: LoginScreenActions(){}
+
