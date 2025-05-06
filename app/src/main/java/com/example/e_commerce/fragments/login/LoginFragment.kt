@@ -32,6 +32,8 @@ import com.example.e_commerce.R
 import com.example.e_commerce.core.AppPadding
 import com.example.e_commerce.core.AppRadius
 import com.example.e_commerce.core.navigation.Register
+import com.example.e_commerce.core.shard_compose.CustomButton
+import com.example.e_commerce.core.shard_compose.FormTextField
 import com.example.e_commerce.managers.login.LoginScreenActions
 import com.example.e_commerce.managers.login.LoginScreenStates
 import com.example.e_commerce.managers.login.LoginViewModel
@@ -130,24 +132,7 @@ fun LoginForm(
                 .padding(top = AppPadding.medium)
                 .align(Alignment.End)
         )
-        Button(
-            onClick = {
-
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = AppPadding.large),
-            shape = RoundedCornerShape(AppRadius.formRadius),
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.onPrimary
-            )
-        ) {
-            Text(
-                text = stringResource(R.string.login),
-                style = MaterialTheme.typography.labelLarge.copy(color = MaterialTheme.colorScheme.primary),
-                modifier = Modifier.padding(top = AppPadding.small, bottom = AppPadding.small)
-            )
-        }
+        CustomButton(text = stringResource(R.string.login), onClick = {})
         Row(modifier = Modifier.fillMaxWidth(), Arrangement.Center) {
             Text(
                 text = stringResource(R.string.don_t_have_an_account),
@@ -168,24 +153,6 @@ fun LoginForm(
     }
 }
 
-@Composable
-fun FormTextField(labelText: String, trailingIcon: (@Composable (() -> Unit))? = null) {
-    TextField(
-        shape = RoundedCornerShape(AppRadius.formRadius),
-        value = "",
-        textStyle = MaterialTheme.typography.labelSmall,
-        onValueChange = {},
-        label = {
-            Text(
-                text = labelText,
-                style = MaterialTheme.typography.labelSmall
-            )
-        },
-        trailingIcon = trailingIcon?.let { { it() } },
-        modifier = Modifier.fillMaxWidth(),
-
-        )
-}
 //
 //@Preview(showBackground = true, showSystemUi = true)
 //@Composable
