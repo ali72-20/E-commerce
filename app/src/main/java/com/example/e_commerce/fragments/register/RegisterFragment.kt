@@ -21,15 +21,39 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.e_commerce.R
 import com.example.e_commerce.core.AppPadding
+import com.example.e_commerce.core.navigation.Login
 import com.example.e_commerce.core.shard_compose.CustomButton
 import com.example.e_commerce.core.shard_compose.FormTextField
-import com.example.e_commerce.managers.login.LoginScreenActions
+import com.example.e_commerce.managers.register.RegisterActions
+import com.example.e_commerce.managers.register.RegisterScreenStates
+import com.example.e_commerce.managers.register.RegisterViewModel
 import com.example.e_commerce.ui.theme.EcommerceTheme
 
 @Composable
-fun RegisterFragment() {
+fun RegisterScreen(
+    viewModel: RegisterViewModel = hiltViewModel<RegisterViewModel>(),
+    navController: NavController
+) {
+
+    when (viewModel.state) {
+        RegisterScreenStates(navigateToLoginState = true) -> {
+            navController.navigate(Login)
+        }
+    }
+
+    RegisterFragment(
+        onAction = viewModel::onAction
+    )
+}
+
+@Composable
+fun RegisterFragment(
+    onAction: (RegisterActions) -> Unit
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -70,7 +94,7 @@ fun RegisterFragment() {
 fun RegisterForm() {
     Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
     )
     {
         Text(
@@ -105,13 +129,11 @@ fun RegisterForm() {
     }
 }
 
-
-
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun RegisterScreenPreview() {
-    EcommerceTheme {
-        RegisterFragment()
-    }
-}
+//
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun RegisterScreenPreview() {
+//    EcommerceTheme {
+//        RegisterFragment()
+//    }
+//}
