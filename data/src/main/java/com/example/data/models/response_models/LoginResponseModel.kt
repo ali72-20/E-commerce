@@ -4,7 +4,15 @@ data class LoginResponseModel(
 	val message: String? = null,
 	val user: User? = null,
 	val token: String? = null
-)
+){
+	fun toDomain():UserEntity{
+		return UserEntity(
+			name = user.name,
+			email = user.email,
+			role = user.role
+		)
+	}
+}
 
 
 data class User(

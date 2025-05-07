@@ -1,6 +1,5 @@
 package com.example.data.data_sources
 
-import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,5 +13,5 @@ abstract class AuthRemoteDataSourceModule{
     @Binds
     abstract fun bindRemoteDataSource(
         authRemoteDataSourceImpl: AuthRemoteDataSourceImpl
-    ): AuthRemoteDataSourceModule
+    ): AuthRemoteDataSource
 }
