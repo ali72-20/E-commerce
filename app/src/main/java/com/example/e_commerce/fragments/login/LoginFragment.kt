@@ -103,12 +103,12 @@ fun LoginForm(
             .padding(top = AppPadding.x40large)
     ) {
         Text(
-            text = stringResource(R.string.user_name),
+            text = stringResource(R.string.e_mail_address),
             style = MaterialTheme.typography.labelMedium,
             modifier = Modifier.padding(bottom = AppPadding.large)
         )
         FormTextField(
-            stringResource(R.string.enter_your_name),
+            stringResource(R.string.enter_your_email_address),
         )
         Text(
             text = stringResource(R.string.password),
