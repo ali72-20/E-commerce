@@ -9,8 +9,12 @@ data class LoginRequestModel(
     @SerializedName("password")
     var password: String
 ){
-    fun fromDomain(loginRequestEntity: LoginRequestEntity){
-        email = loginRequestEntity.email
-        password = loginRequestEntity.password
+    companion object{
+        fun fromDomain(loginRequestEntity: LoginRequestEntity): LoginRequestModel{
+            return LoginRequestModel(
+                email = loginRequestEntity.email,
+                password = loginRequestEntity.password
+            )
+        }
     }
 }

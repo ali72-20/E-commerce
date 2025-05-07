@@ -1,22 +1,31 @@
 package com.example.data.models.response_models
 
+import UserEntity
+import com.google.gson.annotations.SerializedName
+
 data class LoginResponseModel(
-	val message: String? = null,
-	val user: User? = null,
-	val token: String? = null
-){
-	fun toDomain():UserEntity{
-		return UserEntity(
-			name = user.name,
-			email = user.email,
-			role = user.role
-		)
-	}
+    @SerializedName("message")
+    val message: String? = null,
+    @SerializedName("user")
+    val user: User? = null,
+    @SerializedName("token")
+    val token: String? = null
+) {
+    fun toDomain(): UserEntity {
+        return UserEntity(
+            role = user?.role,
+            name = user?.name,
+            email = user?.email
+        )
+    }
 }
 
 
 data class User(
-	val role: String? = null,
-	val name: String? = null,
-	val email: String? = null
+    @SerializedName("role")
+    val role: String? = null,
+    @SerializedName("name")
+    val name: String? = null,
+    @SerializedName("email")
+    val email: String? = null
 )
