@@ -57,13 +57,15 @@ class LoginViewModel @Inject constructor(
             is ApiResult.Success<UserEntity> -> {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
-                    isSuccess = true
+                    isSuccess = true,
+                    isFailure = false
                 )
             }
 
             is ApiResult.Failure<*> -> {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
+                    isSuccess = false,
                     isFailure = true
                 )
             }
