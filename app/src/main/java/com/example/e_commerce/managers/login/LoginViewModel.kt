@@ -25,7 +25,8 @@ class LoginViewModel @Inject constructor(
 
     var email = mutableStateOf("")
     var password = mutableStateOf("")
-
+    var emailTouched = mutableStateOf(false)
+    var passwordTouched = mutableStateOf(false)
      fun isValidEmail(): String?{
         if(!validatorManager.validateEmail(email.value)){
             return "Email is not valid"

@@ -120,8 +120,9 @@ fun LoginForm(
             labelText = stringResource(R.string.enter_your_email_address),
             onValueChanged = {
                 viewModel.email.value= it
+                viewModel.emailTouched.value = true
             },
-            isError = viewModel.isValidEmail() != null,
+            isError = viewModel.emailTouched.value && viewModel.isValidEmail() != null,
             errorMessage = viewModel.isValidEmail()
         )
         Text(
@@ -141,8 +142,9 @@ fun LoginForm(
             },
             onValueChanged = {
                 viewModel.password.value = it
+                viewModel.passwordTouched.value = true
             },
-            isError = viewModel.isValidPassword() == null,
+            isError = viewModel.passwordTouched.value && viewModel.isValidPassword() != null,
             errorMessage = viewModel.isValidPassword()
         )
         Text(

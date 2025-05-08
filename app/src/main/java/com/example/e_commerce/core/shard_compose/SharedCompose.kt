@@ -1,5 +1,6 @@
 package com.example.e_commerce.core.shard_compose
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -9,8 +10,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import com.example.e_commerce.core.AppPadding
 import com.example.e_commerce.core.AppRadius
 
@@ -37,7 +40,13 @@ fun FormTextField(
             },
             isError = isError,
             trailingIcon = trailingIcon?.let { { it() } },
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().then(
+                if(isError){
+                    Modifier.border(width = 2.dp, shape = RoundedCornerShape(8.dp), color = MaterialTheme.colorScheme.error)
+                }else{
+                    Modifier
+                }
+            ),
         )
         if (isError && errorMessage != null) {
             Text(
