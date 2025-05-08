@@ -42,6 +42,7 @@ fun LoginScreen(
 ) {
 
     val state = viewModel.uiState.collectAsState().value
+    LoginFragment(viewModel)
     when{
         state.isLoading->{
             CircularProgressIndicator(
@@ -56,7 +57,7 @@ fun LoginScreen(
             Toast.makeText(navController.context,"Something went wrong", Toast.LENGTH_SHORT).show()
         }
     }
-    LoginFragment(viewModel)
+
 }
 
 
@@ -123,7 +124,8 @@ fun LoginForm(
                 viewModel.emailTouched.value = true
             },
             isError = viewModel.emailTouched.value && viewModel.isValidEmail() != null,
-            errorMessage = viewModel.isValidEmail()
+            errorMessage = viewModel.isValidEmail(),
+            isVisible = true
         )
         Text(
             text = stringResource(R.string.password),
@@ -137,7 +139,10 @@ fun LoginForm(
                 Icon(
                     painterResource(R.drawable.eye),
                     contentDescription = stringResource(R.string.show_password),
-                    tint = Gray
+                    tint = Gray,
+                    modifier = Modifier.clickable{
+                        onAction(LoginScreenActions.ChangePasswordVisibilityAction)
+                    }
                 )
             },
             onValueChanged = {
@@ -145,7 +150,8 @@ fun LoginForm(
                 viewModel.passwordTouched.value = true
             },
             isError = viewModel.passwordTouched.value && viewModel.isValidPassword() != null,
-            errorMessage = viewModel.isValidPassword()
+            errorMessage = viewModel.isValidPassword(),
+            isVisible = viewModel.isVisiblePassword.value
         )
         Text(
             text = stringResource(R.string.forget_password),

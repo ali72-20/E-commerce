@@ -13,6 +13,8 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.example.e_commerce.core.AppPadding
 import com.example.e_commerce.core.AppRadius
@@ -24,10 +26,12 @@ fun FormTextField(
     trailingIcon: (@Composable (() -> Unit))? = null,
     onValueChanged: (String) -> Unit,
     isError: Boolean,
-    errorMessage: String?
+    errorMessage: String?,
+    isVisible : Boolean
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         TextField(
+            visualTransformation = if (isVisible) VisualTransformation.None else PasswordVisualTransformation(),
             shape = RoundedCornerShape(AppRadius.formRadius),
             value = value,
             textStyle = MaterialTheme.typography.labelSmall,

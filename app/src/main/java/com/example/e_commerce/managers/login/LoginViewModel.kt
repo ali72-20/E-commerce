@@ -27,15 +27,16 @@ class LoginViewModel @Inject constructor(
     var password = mutableStateOf("")
     var emailTouched = mutableStateOf(false)
     var passwordTouched = mutableStateOf(false)
-     fun isValidEmail(): String?{
-        if(!validatorManager.validateEmail(email.value)){
+    var isVisiblePassword = mutableStateOf(false)
+    fun isValidEmail(): String? {
+        if (!validatorManager.validateEmail(email.value)) {
             return "Email is not valid"
         }
         return null
     }
 
-     fun isValidPassword(): String?{
-        if(!validatorManager.validatePassword(password.value)){
+    fun isValidPassword(): String? {
+        if (!validatorManager.validatePassword(password.value)) {
             return "Not valid password"
         }
         return null
@@ -44,20 +45,25 @@ class LoginViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(LoginScreenStates())
     val uiState: StateFlow<LoginScreenStates> = _uiState.asStateFlow()
 
-    private suspend fun login(){
-        if(isValidEmail()!=null){return}
-        if(isValidPassword() != null){return}
+    private suspend fun login() {
+        if (isValidEmail() != null) {
+            return
+        }
+        if (isValidPassword() != null) {
+            return
+        }
         _uiState.value = _uiState.value.copy(
             isLoading = true
         )
         val result = loginUseCase.invoke(LoginRequestEntity(email.value, password.value))
-        when(result){
-            is ApiResult.Success<UserEntity>->{
+        when (result) {
+            is ApiResult.Success<UserEntity> -> {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
-                    isSuccess =  true
+                    isSuccess = true
                 )
             }
+
             is ApiResult.Failure<*> -> {
                 _uiState.value = _uiState.value.copy(
                     isLoading = false,
@@ -67,15 +73,21 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun onAction(actions: LoginScreenActions){
-         when (actions) {
+    private fun changePasswordVisibility() {
+        isVisiblePassword.value = !isVisiblePassword.value
+    }
+
+    fun onAction(actions: LoginScreenActions) {
+        when (actions) {
             LoginScreenActions.LoginAction -> {
                 viewModelScope.launch {
                     login()
                 }
             }
+
+            LoginScreenActions.ChangePasswordVisibilityAction ->
+                changePasswordVisibility()
         }
     }
-
-
 }
+
