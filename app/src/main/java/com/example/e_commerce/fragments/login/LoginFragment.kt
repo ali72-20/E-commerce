@@ -31,7 +31,9 @@ import com.example.e_commerce.core.AppPadding
 import com.example.e_commerce.core.shard_compose.CustomButton
 import com.example.e_commerce.core.shard_compose.FormTextField
 import com.example.e_commerce.managers.login.LoginScreenActions
+import com.example.e_commerce.managers.login.LoginScreenFormStates
 import com.example.e_commerce.managers.login.LoginViewModel
+import com.example.e_commerce.ui.theme.Blue
 import com.example.e_commerce.ui.theme.Gray
 
 
@@ -117,13 +119,13 @@ fun LoginForm(
             modifier = Modifier.padding(bottom = AppPadding.large)
         )
         FormTextField(
-            value = viewModel.email.value,
+            value = LoginScreenFormStates.email.value,
             labelText = stringResource(R.string.enter_your_email_address),
             onValueChanged = {
-                viewModel.email.value= it
-                viewModel.emailTouched.value = true
+                viewModel.loginScreenFormStates.email.value= it
+                viewModel.loginScreenFormStates.emailTouched.value = true
             },
-            isError = viewModel.emailTouched.value && viewModel.isValidEmail() != null,
+            isError = viewModel.loginScreenFormStates.emailTouched.value && viewModel.isValidEmail() != null,
             errorMessage = viewModel.isValidEmail(),
             isVisible = true
         )
@@ -133,25 +135,25 @@ fun LoginForm(
             modifier = Modifier.padding(bottom = AppPadding.large, top = AppPadding.large)
         )
         FormTextField(
-            value = viewModel.password.value,
+            value = viewModel.loginScreenFormStates.password.value,
             labelText = stringResource(R.string.enter_your_password),
             trailingIcon = {
                 Icon(
                     painterResource(R.drawable.eye),
                     contentDescription = stringResource(R.string.show_password),
-                    tint = Gray,
+                    tint = if(viewModel.loginScreenFormStates.isVisiblePassword.value) Blue else Gray,
                     modifier = Modifier.clickable{
                         onAction(LoginScreenActions.ChangePasswordVisibilityAction)
                     }
                 )
             },
             onValueChanged = {
-                viewModel.password.value = it
-                viewModel.passwordTouched.value = true
+                viewModel.loginScreenFormStates.password.value = it
+                viewModel.loginScreenFormStates.passwordTouched.value = true
             },
-            isError = viewModel.passwordTouched.value && viewModel.isValidPassword() != null,
+            isError = viewModel.loginScreenFormStates.passwordTouched.value && viewModel.isValidPassword() != null,
             errorMessage = viewModel.isValidPassword(),
-            isVisible = viewModel.isVisiblePassword.value
+            isVisible = viewModel.loginScreenFormStates.isVisiblePassword.value
         )
         Text(
             text = stringResource(R.string.forget_password),

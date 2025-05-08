@@ -20,23 +20,20 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val validatorManager: ValidatorManager,
+    val loginScreenFormStates: LoginScreenFormStates,
     private val loginUseCase: LoginUseCase
 ) : ViewModel() {
 
-    var email = mutableStateOf("")
-    var password = mutableStateOf("")
-    var emailTouched = mutableStateOf(false)
-    var passwordTouched = mutableStateOf(false)
-    var isVisiblePassword = mutableStateOf(false)
+
     fun isValidEmail(): String? {
-        if (!validatorManager.validateEmail(email.value)) {
+        if (!validatorManager.validateEmail(loginScreenFormStates.email.value)) {
             return "Email is not valid"
         }
         return null
     }
 
     fun isValidPassword(): String? {
-        if (!validatorManager.validatePassword(password.value)) {
+        if (!validatorManager.validatePassword(loginScreenFormStates.password.value)) {
             return "Not valid password"
         }
         return null
@@ -55,7 +52,7 @@ class LoginViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(
             isLoading = true
         )
-        val result = loginUseCase.invoke(LoginRequestEntity(email.value, password.value))
+        val result = loginUseCase.invoke(LoginRequestEntity(loginScreenFormStates.email.value, LoginScreenFormStates.password.value))
         when (result) {
             is ApiResult.Success<UserEntity> -> {
                 _uiState.value = _uiState.value.copy(
@@ -74,7 +71,7 @@ class LoginViewModel @Inject constructor(
     }
 
     private fun changePasswordVisibility() {
-        isVisiblePassword.value = !isVisiblePassword.value
+        loginScreenFormStates.isVisiblePassword.value = !loginScreenFormStates.isVisiblePassword.value
     }
 
     fun onAction(actions: LoginScreenActions) {
