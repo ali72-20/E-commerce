@@ -8,7 +8,7 @@ import dagger.hilt.android.components.ViewModelComponent
 
 @Module
 @InstallIn(ViewModelComponent::class)
-object ValidatorManagerModule {
+object LoginDependencyModule {
     @Provides
     fun provideValidatorManager(): ValidatorManager{
         return ValidatorManager()

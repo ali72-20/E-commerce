@@ -14,10 +14,10 @@ import com.example.e_commerce.core.AppPadding
 import com.example.e_commerce.core.AppRadius
 
 @Composable
-fun FormTextField(labelText: String, trailingIcon: (@Composable (() -> Unit))? = null) {
+fun FormTextField(value: String, labelText: String, trailingIcon: (@Composable (() -> Unit))? = null) {
     TextField(
         shape = RoundedCornerShape(AppRadius.formRadius),
-        value = "",
+        value =value,
         textStyle = MaterialTheme.typography.labelSmall,
         onValueChange = {},
         label = {
