@@ -1,5 +1,6 @@
 package com.example.e_commerce.core.shard_compose
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,27 +15,43 @@ import com.example.e_commerce.core.AppPadding
 import com.example.e_commerce.core.AppRadius
 
 @Composable
-fun FormTextField(value: String, labelText: String, trailingIcon: (@Composable (() -> Unit))? = null) {
-    TextField(
-        shape = RoundedCornerShape(AppRadius.formRadius),
-        value =value,
-        textStyle = MaterialTheme.typography.labelSmall,
-        onValueChange = {},
-        label = {
-            Text(
-                text = labelText,
-                style = MaterialTheme.typography.labelSmall
-            )
-        },
-        trailingIcon = trailingIcon?.let { { it() } },
-        modifier = Modifier.fillMaxWidth(),
-
+fun FormTextField(
+    value: String,
+    labelText: String,
+    trailingIcon: (@Composable (() -> Unit))? = null,
+    onValueChanged: (String) -> Unit,
+    isError: Boolean,
+    errorMessage: String?
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        TextField(
+            shape = RoundedCornerShape(AppRadius.formRadius),
+            value = value,
+            textStyle = MaterialTheme.typography.labelSmall,
+            onValueChange = onValueChanged,
+            label = {
+                Text(
+                    text = labelText,
+                    style = MaterialTheme.typography.labelSmall
+                )
+            },
+            isError = isError,
+            trailingIcon = trailingIcon?.let { { it() } },
+            modifier = Modifier.fillMaxWidth(),
         )
+        if (isError && errorMessage != null) {
+            Text(
+                text = errorMessage,
+                style = MaterialTheme.typography.labelSmall.copy(color = MaterialTheme.colorScheme.error),
+                modifier = Modifier.padding(start = AppPadding.medium, top = AppPadding.small)
+            )
+        }
+    }
 }
 
 
 @Composable
-fun CustomButton(text : String,onClick:()-> Unit){
+fun CustomButton(text: String, onClick: () -> Unit) {
     Button(
         onClick = onClick,
         modifier = Modifier

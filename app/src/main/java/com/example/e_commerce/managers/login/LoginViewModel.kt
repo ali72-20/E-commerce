@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.domain.core.ApiResult
 import com.example.domain.entities.request_entities.LoginRequestEntity
 import com.example.domain.use_cases.auth_use_cases.LoginUseCase
@@ -12,6 +13,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -21,18 +23,18 @@ class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
 ) : ViewModel() {
 
-    var email: String = ""
-    var password: String = ""
+    var email = mutableStateOf("")
+    var password = mutableStateOf("")
 
-    private fun isValidEmail(): String?{
-        if(!validatorManager.validateEmail(email)){
+     fun isValidEmail(): String?{
+        if(!validatorManager.validateEmail(email.value)){
             return "Email is not valid"
         }
         return null
     }
 
-    private fun isValidPassword(): String?{
-        if(!validatorManager.validatePassword(password)){
+     fun isValidPassword(): String?{
+        if(!validatorManager.validatePassword(password.value)){
             return "Not valid password"
         }
         return null
@@ -47,7 +49,7 @@ class LoginViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(
             isLoading = true
         )
-        val result = loginUseCase.invoke(LoginRequestEntity(email, password))
+        val result = loginUseCase.invoke(LoginRequestEntity(email.value, password.value))
         when(result){
             is ApiResult.Success<UserEntity>->{
                 _uiState.value = _uiState.value.copy(
@@ -64,9 +66,13 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun onAction(actions: LoginScreenActions): String {
-        return when (actions) {
-            LoginScreenActions.LoginAction -> TODO()
+    fun onAction(actions: LoginScreenActions){
+         when (actions) {
+            LoginScreenActions.LoginAction -> {
+                viewModelScope.launch {
+                    login()
+                }
+            }
         }
     }
 

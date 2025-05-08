@@ -44,7 +44,10 @@ fun LoginScreen(
     val state = viewModel.uiState.collectAsState().value
     when{
         state.isLoading->{
-            CircularProgressIndicator()
+            CircularProgressIndicator(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.secondary,
+            )
         }
         state.isSuccess->{
             Toast.makeText(navController.context,"Success", Toast.LENGTH_SHORT).show()
@@ -113,8 +116,13 @@ fun LoginForm(
             modifier = Modifier.padding(bottom = AppPadding.large)
         )
         FormTextField(
-            value = viewModel.email,
-            stringResource(R.string.enter_your_email_address),
+            value = viewModel.email.value,
+            labelText = stringResource(R.string.enter_your_email_address),
+            onValueChanged = {
+                viewModel.email.value= it
+            },
+            isError = viewModel.isValidEmail() != null,
+            errorMessage = viewModel.isValidEmail()
         )
         Text(
             text = stringResource(R.string.password),
@@ -122,7 +130,7 @@ fun LoginForm(
             modifier = Modifier.padding(bottom = AppPadding.large, top = AppPadding.large)
         )
         FormTextField(
-            value = viewModel.password,
+            value = viewModel.password.value,
             labelText = stringResource(R.string.enter_your_password),
             trailingIcon = {
                 Icon(
@@ -130,7 +138,12 @@ fun LoginForm(
                     contentDescription = stringResource(R.string.show_password),
                     tint = Gray
                 )
-            }
+            },
+            onValueChanged = {
+                viewModel.password.value = it
+            },
+            isError = viewModel.isValidPassword() == null,
+            errorMessage = viewModel.isValidPassword()
         )
         Text(
             text = stringResource(R.string.forget_password),
