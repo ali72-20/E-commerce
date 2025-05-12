@@ -7,6 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.e_commerce.fragments.login.LoginScreen
+import com.example.e_commerce.fragments.register.RegisterFragment
+import com.example.e_commerce.fragments.register.RegisterScreen
 
 import kotlinx.serialization.Serializable
 
@@ -19,9 +21,7 @@ fun AppNavigation() {
             LoginScreen(navController = navController)
         }
         composable<Register> {
-            Text(
-                text = "Register"
-            )
+            RegisterScreen(navController)
         }
     }
 }

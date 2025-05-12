@@ -4,11 +4,11 @@ import UserEntity
 import com.google.gson.annotations.SerializedName
 
 data class LoginResponseModel(
-    @SerializedName("message")
+    @field: SerializedName("message")
     val message: String? = null,
-    @SerializedName("user")
+    @field:SerializedName("user")
     val user: User? = null,
-    @SerializedName("token")
+    @field:SerializedName("token")
     val token: String? = null
 ) {
     fun toDomain(): UserEntity {
@@ -22,10 +22,10 @@ data class LoginResponseModel(
 
 
 data class User(
-    @SerializedName("role")
+    @field:SerializedName("role")
     val role: String? = null,
-    @SerializedName("name")
+    @field:SerializedName("name")
     val name: String? = null,
-    @SerializedName("email")
+    @field:SerializedName("email")
     val email: String? = null
 )
