@@ -8,13 +8,13 @@ data class SignupResponseModel(
 	val message: String? = null,
 
 	@field:SerializedName("user")
-	val user: User? = null,
+	val user: SignupUser? = null,
 
 	@field:SerializedName("token")
 	val token: String? = null
 )
 
-data class User(
+data class SignupUser(
 
 	@field:SerializedName("role")
 	val role: String? = null,

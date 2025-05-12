@@ -7,7 +7,7 @@ data class LoginResponseModel(
     @field: SerializedName("message")
     val message: String? = null,
     @field:SerializedName("user")
-    val user: User? = null,
+    val user: LoginUser? = null,
     @field:SerializedName("token")
     val token: String? = null
 ) {
@@ -21,7 +21,7 @@ data class LoginResponseModel(
 }
 
 
-data class User(
+data class LoginUser(
     @field:SerializedName("role")
     val role: String? = null,
     @field:SerializedName("name")
