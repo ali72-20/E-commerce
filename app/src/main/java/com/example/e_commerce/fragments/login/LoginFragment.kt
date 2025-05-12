@@ -1,5 +1,6 @@
 package com.example.e_commerce.fragments.login
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 
 import androidx.compose.foundation.background
@@ -10,15 +11,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -30,13 +28,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.e_commerce.R
 import com.example.e_commerce.core.AppPadding
-import com.example.e_commerce.core.AppRadius
-import com.example.e_commerce.core.navigation.Register
 import com.example.e_commerce.core.shard_compose.CustomButton
 import com.example.e_commerce.core.shard_compose.FormTextField
 import com.example.e_commerce.managers.login.LoginScreenActions
-import com.example.e_commerce.managers.login.LoginScreenStates
+import com.example.e_commerce.managers.login.LoginScreenFormStates
 import com.example.e_commerce.managers.login.LoginViewModel
+import com.example.e_commerce.ui.theme.Blue
 import com.example.e_commerce.ui.theme.Gray
 
 
@@ -45,10 +42,24 @@ fun LoginScreen(
     navController: NavHostController,
     viewModel: LoginViewModel = hiltViewModel<LoginViewModel>(),
 ) {
-    when(viewModel.state){
-        LoginScreenStates(navigateToRegister = true) -> navController.navigate(Register)
-    }
+
+    val state = viewModel.uiState.collectAsState().value
     LoginFragment(viewModel)
+    when{
+        state.isLoading->{
+            CircularProgressIndicator(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.secondary,
+            )
+        }
+        state.isSuccess->{
+            Toast.makeText(navController.context,"Success", Toast.LENGTH_SHORT).show()
+        }
+        state.isFailure->{
+            Toast.makeText(navController.context,"Something went wrong", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 }
 
 
@@ -85,7 +96,7 @@ fun LoginFragment(
             modifier = Modifier.align(Alignment.Start)
         )
         LoginForm(
-            state = viewModel.state,
+            viewModel = viewModel,
             onAction = viewModel::onAction
         )
     }
@@ -94,7 +105,7 @@ fun LoginFragment(
 
 @Composable
 fun LoginForm(
-    state: LoginScreenStates,
+    viewModel: LoginViewModel,
     onAction: (LoginScreenActions) -> Unit,
 ) {
     Column(
@@ -108,7 +119,15 @@ fun LoginForm(
             modifier = Modifier.padding(bottom = AppPadding.large)
         )
         FormTextField(
-            stringResource(R.string.enter_your_email_address),
+            value = LoginScreenFormStates.email.value,
+            labelText = stringResource(R.string.enter_your_email_address),
+            onValueChanged = {
+                viewModel.loginScreenFormStates.email.value= it
+                viewModel.loginScreenFormStates.emailTouched.value = true
+            },
+            isError = viewModel.loginScreenFormStates.emailTouched.value && viewModel.isValidEmail() != null,
+            errorMessage = viewModel.isValidEmail(),
+            isVisible = true
         )
         Text(
             text = stringResource(R.string.password),
@@ -116,14 +135,25 @@ fun LoginForm(
             modifier = Modifier.padding(bottom = AppPadding.large, top = AppPadding.large)
         )
         FormTextField(
-            stringResource(R.string.enter_your_password),
+            value = viewModel.loginScreenFormStates.password.value,
+            labelText = stringResource(R.string.enter_your_password),
             trailingIcon = {
                 Icon(
                     painterResource(R.drawable.eye),
                     contentDescription = stringResource(R.string.show_password),
-                    tint = Gray
+                    tint = if(viewModel.loginScreenFormStates.isVisiblePassword.value) Blue else Gray,
+                    modifier = Modifier.clickable{
+                        onAction(LoginScreenActions.ChangePasswordVisibilityAction)
+                    }
                 )
-            }
+            },
+            onValueChanged = {
+                viewModel.loginScreenFormStates.password.value = it
+                viewModel.loginScreenFormStates.passwordTouched.value = true
+            },
+            isError = viewModel.loginScreenFormStates.passwordTouched.value && viewModel.isValidPassword() != null,
+            errorMessage = viewModel.isValidPassword(),
+            isVisible = viewModel.loginScreenFormStates.isVisiblePassword.value
         )
         Text(
             text = stringResource(R.string.forget_password),
@@ -132,7 +162,9 @@ fun LoginForm(
                 .padding(top = AppPadding.medium)
                 .align(Alignment.End)
         )
-        CustomButton(text = stringResource(R.string.login), onClick = {})
+        CustomButton(text = stringResource(R.string.login), onClick = {
+            onAction(LoginScreenActions.LoginAction)
+        })
         Row(modifier = Modifier.fillMaxWidth(), Arrangement.Center) {
             Text(
                 text = stringResource(R.string.don_t_have_an_account),
@@ -146,7 +178,7 @@ fun LoginForm(
                 modifier = Modifier
                     .padding(top = AppPadding.medium)
                     .clickable {
-                        onAction(LoginScreenActions.GoToRegisterAction)
+
                     }
             )
         }

@@ -104,30 +104,62 @@ fun RegisterForm() {
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(top = AppPadding.x48large, bottom = AppPadding.medium)
         )
-        FormTextField(stringResource(R.string.enter_your_full_name))
+        FormTextField(
+            labelText = stringResource(R.string.enter_your_full_name),
+            value = "",
+            onValueChanged = {},
+            isError = false,
+            isVisible = true,
+            errorMessage = null
+        )
         Text(
             stringResource(R.string.mobile_number),
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(top = AppPadding.large, bottom = AppPadding.medium)
 
         )
-        FormTextField(stringResource(R.string.enter_your_mobile_no))
+        FormTextField(
+            labelText = stringResource(R.string.enter_your_mobile_no),
+            value = "",
+            onValueChanged = {
+
+            },
+            isError = false,
+            isVisible = true,
+            errorMessage = null
+        )
         Text(
             stringResource(R.string.e_mail_address),
             style = MaterialTheme.typography.bodyLarge,
             modifier = Modifier.padding(top = AppPadding.large, bottom = AppPadding.medium)
         )
-        FormTextField(stringResource(R.string.enter_your_email_address))
+        FormTextField(
+            labelText = stringResource(R.string.enter_your_email_address),
+            value = "",
+            onValueChanged = {
+
+            },
+            isError = false,
+            errorMessage = null,
+            isVisible = true
+        )
         Text(
             stringResource(R.string.password),
             modifier = Modifier.padding(top = AppPadding.large, bottom = AppPadding.medium)
         )
-        FormTextField(stringResource(R.string.enter_your_password), trailingIcon = {
-            Icon(
-                painterResource(R.drawable.eye),
-                contentDescription = stringResource(R.string.show_password)
-            )
-        })
+        FormTextField(
+            value = "",
+            onValueChanged = {},
+            isError = false,
+            errorMessage = null,
+            isVisible = true,
+            labelText = stringResource(R.string.enter_your_password),
+            trailingIcon = {
+                Icon(
+                    painterResource(R.drawable.eye),
+                    contentDescription = stringResource(R.string.show_password)
+                )
+            })
     }
 }
 
