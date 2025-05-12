@@ -21,7 +21,7 @@ fun AppNavigation() {
             LoginScreen(navController = navController)
         }
         composable<Register> {
-            RegisterScreen(navController)
+            RegisterScreen(navController = navController)
         }
     }
 }
