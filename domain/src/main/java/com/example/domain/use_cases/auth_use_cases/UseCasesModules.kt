@@ -14,4 +14,10 @@ object UseCasesModules {
     fun provideLoginUseCase(authRepository: AuthRepository): LoginUseCase{
         return LoginUseCase(authRepository)
     }
+
+
+    @Provides
+    fun provideSignupUseCase(authRepository: AuthRepository): SignupUseCase{
+        return SignupUseCase(authRepository)
+    }
 }
